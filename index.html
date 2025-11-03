@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Flujo de Procesos - TECNINTEGRAL SAS</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-icon {
+            font-size: 1.2em;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid;
+        }
+        
+        .stat-card.blue { border-color: #2196F3; }
+        .stat-card.green { border-color: #4CAF50; }
+        .stat-card.orange { border-color: #FF9800; }
+        
+        .stat-label {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .stat-card.blue .stat-value { color: #2196F3; }
+        .stat-card.green .stat-value { color: #4CAF50; }
+        .stat-card.orange .stat-value { color: #FF9800; }
+        
+        .stat-desc {
+            font-size: 0.8em;
+            color: #999;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .mermaid-container {
+            background: #fafbfc;
+            border-radius: 12px;
+            padding: 30px;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            min-height: 400px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .footer h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        
+        .specialization {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .specialization p {
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        
+        .legend-text {
+            font-size: 0.9em;
+            color: #34495e;
+            font-weight: 500;
+        }
+        
+        .credits {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9em;
+            color: #bdc3c7;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .stats-bar {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏭 TECNINTEGRAL SAS</h1>
+            <div class="header-info">
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <span>Carrera 81 # 65 A - 45 Sur, Bogotá DC, Colombia</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🌐</span>
+                    <span>Coordenadas: 4.6100214, -74.1879129</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🔗</span>
+                    <a href="https://www.tecnintegral.com" target="_blank" style="color: #fff; text-decoration: none;">www.tecnintegral.com</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card blue">
+                <div class="stat-label">Fundación</div>
+                <div class="stat-value">1984</div>
+                <div class="stat-desc">+40 años de experiencia</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-label">Equipo Humano</div>
+                <div class="stat-value">~170</div>
+                <div class="stat-desc">Profesionales y técnicos</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-label">Instalaciones</div>
+                <div class="stat-value">13,500 m²</div>
+                <div class="stat-desc">Planta de fabricación</div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <h2 class="diagram-title">📊 Diagrama de Flujo de Procesos Operacionales</h2>
+            
+            <div class="mermaid-container">
+                <div class="mermaid">
+graph TD
+    Start([INICIO - Cliente Potencial]) --> A[Contacto Comercial Inicial]
+    
+    A --> B{¿Cliente<br/>Interesado?}
+    B -->|No| End1([FIN - Seguimiento Futuro])
+    B -->|Sí| C[Visita Técnica al Sitio]
+    
+    C --> D[Análisis de Requerimientos]
+    D --> E[Ingeniería Conceptual]
+    E --> F[Elaboración de Propuesta<br/>Técnico-Económica]
+    
+    F --> G{¿Propuesta<br/>Aceptada?}
+    G -->|No| H[Ajustes y Renegociación]
+    H --> G
+    G -->|Sí| I[Firma de Contrato]
+    
+    I --> J[INGENIERÍA DE DETALLE]
+    J --> J1[Diseño de Procesos]
+    J --> J2[Diseño Mecánico]
+    J --> J3[Diseño Eléctrico]
+    J --> J4[Planos de Fabricación]
+    
+    J1 --> K[Aprobación de Diseños]
+    J2 --> K
+    J3 --> K
+    J4 --> K
+    
+    K --> L{¿Diseños<br/>Aprobados?}
+    L -->|No| J
+    L -->|Sí| M[Compra de Materiales]
+    
+    M --> N[FABRICACIÓN EN PLANTA 13,500m²]
+    N --> N1[Corte y Preparación]
+    N1 --> N2[Soldadura]
+    N2 --> N3[Mecanizado]
+    N3 --> N4[Armado]
+    N4 --> N5[Pintura y Acabados]
+    N5 --> N6[Control de Calidad]
+    
+    N6 --> O{¿Cumple<br/>Estándares?}
+    O -->|No| N1
+    O -->|Sí| P[Pruebas en Taller]
+    
+    P --> Q[Preparación para Despacho]
+    Q --> R[LOGÍSTICA Y TRANSPORTE]
+    R --> S[Entrega en Sitio de Obra]
+    
+    S --> T[MONTAJE E INSTALACIÓN]
+    T --> T1[Montaje de Estructuras]
+    T1 --> T2[Instalación de Equipos]
+    T2 --> T3[Tuberías y Conexiones]
+    T3 --> T4[Instalación Eléctrica]
+    T4 --> T5[Instrumentación]
+    
+    T5 --> U[COMISIONAMIENTO]
+    U --> U1[Pruebas en Vacío]
+    U1 --> U2[Pruebas con Fluidos]
+    U2 --> U3[Arranque Inicial]
+    U3 --> U4[Optimización]
+    
+    U4 --> V{¿Planta<br/>Operando OK?}
+    V -->|No| W[Ajustes y Correcciones]
+    W --> U3
+    V -->|Sí| X[Capacitación a Operadores]
+    
+    X --> Y[Entrega Formal al Cliente]
+    Y --> Z[SERVICIO POST-VENTA]
+    
+    Z --> Z1[Soporte Técnico]
+    Z --> Z2[Mantenimiento Preventivo]
+    Z --> Z3[Suministro de Repuestos]
+    Z --> Z4[Optimizaciones]
+    
+    Z1 --> End2([CLIENTE SATISFECHO])
+    Z2 --> End2
+    Z3 --> End2
+    Z4 --> End2
+    
+    style Start fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style End1 fill:#9E9E9E,stroke:#616161,color:#fff
+    style End2 fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style I fill:#2196F3,stroke:#1565C0,color:#fff
+    style J fill:#FF9800,stroke:#E65100,color:#fff
+    style N fill:#FF5722,stroke:#BF360C,color:#fff
+    style T fill:#9C27B0,stroke:#4A148C,color:#fff
+    style U fill:#00BCD4,stroke:#006064,color:#fff
+    style Y fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style Z fill:#3F51B5,stroke:#1A237E,color:#fff
+                </div>
+            </div>
+            
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4CAF50;"></div>
+                    <span class="legend-text">Inicio/Fin/Entrega</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2196F3;"></div>
+                    <span class="legend-text">Contratación</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FF9800;"></div>
+                    <span class="legend-text">Ingeniería</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FF5722;"></div>
+                    <span class="legend-text">Fabricación</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9C27B0;"></div>
+                    <span class="legend-text">Montaje</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #00BCD4;"></div>
+                    <span class="legend-text">Comisionamiento</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3F51B5;"></div>
+                    <span class="legend-text">Post-venta</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9E9E9E;"></div>
+                    <span class="legend-text">Seguimiento</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <h3>🌟 Especialización</h3>
+            <div class="specialization">
+                <p><strong>Líder en Latinoamérica</strong> en diseño, fabricación, montaje y puesta en marcha de <strong>plantas de extracción de aceite de palma</strong>.</p>
+                <p style="margin-top: 10px;">Empresa con equipo multidisciplinario especializado en ingeniería industrial y agroindustrial.</p>
+            </div>
+            
+            <div class="credits">
+                <p>© 2024 TECNINTEGRAL SAS - Diagrama de Flujo de Procesos</p>
+                <p style="margin-top: 5px;">📍 Bogotá, Colombia | 🌐 www.tecnintegral.com</p>
+                <p style="margin-top: 10px; font-size: 0.85em;">Diagrama generado con Claude AI - Mermaid.js</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
